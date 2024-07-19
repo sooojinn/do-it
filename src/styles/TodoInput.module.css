@@ -1,0 +1,73 @@
+.input {
+  width: 996px;
+  height: 52.5px;
+  border: 2px solid #0f172a;
+  border-radius: 24px;
+  outline: none;
+  padding: 0 20px;
+  background: #f1f5f9;
+
+  position: relative;
+  z-index: 1;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.16px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: inline-block;
+  margin-top: 24px;
+}
+
+.inputShadow {
+  position: absolute;
+  width: 996px;
+  height: 52.5px;
+  top: 3.5px;
+  left: 4px;
+  z-index: 0;
+  border-radius: 24px;
+  background: #0f172a;
+  border: 2px solid #0f172a;
+}
+
+.input::placeholder {
+  color: #64748b;
+}
+
+.btn {
+  width: 164.35px;
+  height: 52px;
+  border-radius: 24px;
+  border: 2px solid #0f172a;
+  background: #e2e8f0;
+
+  position: relative;
+  z-index: 1;
+
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18.16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btnWrapper {
+  position: relative;
+  display: inline-block;
+  margin-left: 16px;
+}
+
+.btnShadow {
+  position: absolute;
+  z-index: 0;
+  width: 164.35px;
+  height: 52px;
+  top: 4px;
+  left: 3.65px;
+  border-radius: 24px;
+  background: #0f172a;
+  border: 2px solid #0f172a;
+}
