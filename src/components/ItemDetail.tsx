@@ -6,13 +6,14 @@ import Image from "next/image";
 import { useState } from "react";
 import FileInput from "./FileInput";
 import { deleteItem, patchItem } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 interface ItemDetailProp {
   item: ListItemDetail;
 }
 
 export default function ItemDetail({ item }: ItemDetailProp) {
-  console.log(item);
+  const router = useRouter();
   const type = item.isCompleted ? "done" : "todo";
   const [values, setValues] = useState({
     name: item.name,
@@ -33,7 +34,8 @@ export default function ItemDetail({ item }: ItemDetailProp) {
     const res = await patchItem(item.id, values);
 
     if (res.ok) {
-      alert("수정했습니다.");
+      alert("수정되었습니다.");
+      router.push("/");
     }
   };
 
@@ -44,6 +46,7 @@ export default function ItemDetail({ item }: ItemDetailProp) {
 
     if (res.ok) {
       alert("삭제되었습니다.");
+      router.push("/");
     }
   };
 
