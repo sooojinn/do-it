@@ -18,7 +18,7 @@ export default function ItemDetail({ item }: ItemDetailProp) {
   const [values, setValues] = useState({
     name: item.name,
     memo: item.memo,
-    imageUrl: item.imageUrl,
+    imageUrl: item.imageUrl ?? "",
   });
 
   const handleChange = (name: string, value: string | File | null) => {
@@ -60,58 +60,60 @@ export default function ItemDetail({ item }: ItemDetailProp) {
     handleChange(name, value);
   };
   return (
-    <form className={styles.itemForm}>
-      <div
-        className={`${styles.itemName} ${type === "done" ? styles.done : ""}`}
-      >
-        <Image
-          src={`/${type}_icon.svg`}
-          width={32}
-          height={32}
-          alt={`${type}_icon`}
-        />
-        <input
-          className={styles.inputName}
-          name="name"
-          value={values.name}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className={styles.fileAndMemoWrapper}>
-        <FileInput
-          name="imageUrl"
-          value={values.imageUrl}
-          initialPreview={values.imageUrl}
-          onChange={handleChange}
-        />
-        <div className={styles.memoWrapper}>
-          <p className={styles.memo}>Memo</p>
-          <textarea
-            className={styles.inputMemo}
-            name="memo"
-            value={values.memo ?? ""}
-            onChange={handleTextareaChange}
+    <section className={styles.section}>
+      <form className={styles.itemForm}>
+        <div
+          className={`${styles.itemName} ${type === "done" ? styles.done : ""}`}
+        >
+          <Image
+            src={`/${type}_icon.svg`}
+            width={32}
+            height={32}
+            alt={`${type}_icon`}
+          />
+          <input
+            className={styles.inputName}
+            name="name"
+            value={values.name}
+            onChange={handleInputChange}
           />
         </div>
-      </div>
-      <div className={styles.btns}>
-        <button className={styles.btn} onClick={handleModifyClick}>
-          <Image
-            src="/modify_btn.svg"
-            width={168}
-            height={56}
-            alt="수정 완료"
+        <div className={styles.fileAndMemoWrapper}>
+          <FileInput
+            name="imageUrl"
+            value={values.imageUrl}
+            initialPreview={values.imageUrl}
+            onChange={handleChange}
           />
-        </button>
-        <button className={styles.btn} onClick={handleDeleteClick}>
-          <Image
-            src="/delete_btn.svg"
-            width={168}
-            height={56}
-            alt="삭제 완료"
-          />
-        </button>
-      </div>
-    </form>
+          <div className={styles.memoWrapper}>
+            <p className={styles.memo}>Memo</p>
+            <textarea
+              className={styles.inputMemo}
+              name="memo"
+              value={values.memo ?? ""}
+              onChange={handleTextareaChange}
+            />
+          </div>
+        </div>
+        <div className={styles.btns}>
+          <button className={styles.btn} onClick={handleModifyClick}>
+            <Image
+              src="/modify_btn.svg"
+              width={168}
+              height={56}
+              alt="수정 완료"
+            />
+          </button>
+          <button className={styles.btn} onClick={handleDeleteClick}>
+            <Image
+              src="/delete_btn.svg"
+              width={168}
+              height={56}
+              alt="삭제 완료"
+            />
+          </button>
+        </div>
+      </form>
+    </section>
   );
 }

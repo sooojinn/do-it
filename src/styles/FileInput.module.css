@@ -11,9 +11,23 @@
   position: relative;
 }
 
-.fileSelectBtn {
+.btn {
   position: absolute;
   right: 16px;
   bottom: 16px;
+
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 50px;
   cursor: pointer;
+}
+
+.select {
+  background: #e2e8f0;
+}
+
+.modify {
+  background: #0f172a80;
+  border: 2px solid #0f172a;
 }

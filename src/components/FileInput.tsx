@@ -17,6 +17,7 @@ export default function FileInput({
 }: FileInputProp) {
   const [preview, setPreview] = useState<string>(initialPreview); // 이미지 미리보기 주소
   const inputRef = useRef<HTMLInputElement>(null);
+  const type = value ? "modify" : "select";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -73,7 +74,14 @@ export default function FileInput({
           alt="이미지 미리보기"
         />
         <label className={styles.fileSelectBtn} htmlFor="fileInput">
-          <Image src="/file_select_btn.svg" width={64} height={64} alt="추가" />
+          <button className={`${styles.btn} ${styles[type]}`}>
+            <Image
+              src={`/file_${type}.svg`}
+              width={24}
+              height={24}
+              alt="수정"
+            />
+          </button>
         </label>
       </div>
       <input
@@ -84,11 +92,6 @@ export default function FileInput({
         ref={inputRef}
         style={{ display: "none" }}
       />
-      {value && (
-        <button className="clearBtn" onClick={handleClearClick}>
-          X
-        </button>
-      )}
     </div>
   );
 }

@@ -1,8 +1,13 @@
 import { postItem } from "@/lib/api";
 import styles from "@/styles/TodoInput.module.css";
+import Image from "next/image";
 import { FormEvent, useState } from "react";
 
-export default function TodoInput() {
+interface TodoIInputProps {
+  isEmpty: boolean;
+}
+
+export default function TodoInput({ isEmpty }: TodoIInputProps) {
   const [name, setName] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -10,6 +15,8 @@ export default function TodoInput() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!name.trim()) return;
+
     const res = await postItem(name);
 
     if (res.ok) {
@@ -18,7 +25,7 @@ export default function TodoInput() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.inputWrapper}>
         <input
           className={styles.input}
@@ -29,8 +36,17 @@ export default function TodoInput() {
         <div className={styles.inputShadow}></div>
       </div>
       <div className={styles.btnWrapper}>
-        <button className={styles.btn} type="submit">
-          + 추가하기
+        <button
+          className={`${styles.btn} ${isEmpty ? styles.empty : ""}`}
+          type="submit"
+        >
+          <Image
+            src={`/plus${isEmpty ? "_empty" : ""}.svg`}
+            width={16}
+            height={16}
+            alt="+"
+          />
+          <span className={styles.btnText}>추가하기</span>
         </button>
         <div className={styles.btnShadow}></div>
       </div>
