@@ -4,4 +4,8 @@ export interface ListItem {
   name: string;
 }
 
+export interface PatchItemParams {
+  isCompleted: boolean;
+}
+
 export type ListType = "todo" | "done";

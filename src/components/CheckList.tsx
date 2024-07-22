@@ -1,20 +1,19 @@
 import { ListItem, ListType } from "@/config/types";
+import { patchItem } from "@/lib/api";
 import styles from "@/styles/CheckList.module.css";
 import Image from "next/image";
 
-interface CheckListProps {
+interface BaseProps {
   type: ListType;
+}
+interface CheckListProps extends BaseProps {
   list: ListItem[];
 }
-
-interface CheckListItemProps {
-  type: ListType;
+interface CheckListItemProps extends BaseProps {
   item: ListItem;
 }
 
-interface EmptyListProps {
-  type: ListType;
-}
+interface EmptyListProps extends BaseProps {}
 
 const emptyMessages = {
   todo: ["할 일이 없어요.", "TODO를 새롭게 추가해주세요!"],
@@ -22,6 +21,16 @@ const emptyMessages = {
 };
 
 function CheckListItem({ type, item }: CheckListItemProps) {
+  const handleClick = async (id: number) => {
+    const isCompleted = type === "todo" ? true : false;
+    const data = { isCompleted: isCompleted };
+    const res = await patchItem(id, data);
+
+    if (res.ok) {
+      window.location.reload();
+    }
+  };
+
   return (
     <div
       key={item.id}
@@ -32,6 +41,9 @@ function CheckListItem({ type, item }: CheckListItemProps) {
         width={32}
         height={32}
         alt={`${type}_icon`}
+        onClick={() => {
+          handleClick(item.id);
+        }}
       />
       {item.name}
     </div>
@@ -46,7 +58,7 @@ function EmptyList({ type }: EmptyListProps) {
         {emptyMessages[type].map((message, index) => (
           <p key={index}>{message}</p>
         ))}
-      </div>{" "}
+      </div>
     </>
   );
 }
