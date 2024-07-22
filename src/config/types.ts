@@ -3,9 +3,20 @@ export interface ListItem {
   isCompleted: boolean;
   name: string;
 }
+export interface ListItemDetail extends ListItem {
+  imageUrl: string;
+  memo: string;
+  tenantId: string;
+}
+
+export interface PatchIsCompletedParams {
+  isCompleted: boolean;
+}
 
 export interface PatchItemParams {
-  isCompleted: boolean;
+  name: string;
+  memo: string;
+  imageUrl: string;
 }
 
 export type ListType = "todo" | "done";

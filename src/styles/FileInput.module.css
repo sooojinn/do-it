@@ -1,0 +1,19 @@
+.imgWrapper {
+  width: 384px;
+  height: 311px;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.fileSelectBtn {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  cursor: pointer;
+}

@@ -1,4 +1,9 @@
-import { ListItem, PatchItemParams } from "@/config/types";
+import {
+  ListItem,
+  ListItemDetail,
+  PatchItemParams,
+  PatchIsCompletedParams,
+} from "@/config/types";
 
 const baseUrl = "https://assignment-todolist-api.vercel.app/api/7263";
 
@@ -14,6 +19,22 @@ export async function getItems(): Promise<ListItem[]> {
   }
 
   const result = res.json();
+  return result;
+}
+
+export async function getItemDetail(id: number): Promise<ListItemDetail> {
+  const res = await fetch(baseUrl + `/items/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("데이터를 불러오는 데 실패했습니다.");
+  }
+
+  const result = res.json();
+
   return result;
 }
 
@@ -35,6 +56,25 @@ export async function postItem(data: string) {
   return res;
 }
 
+export async function patchIsCompleted(
+  id: number,
+  data: PatchIsCompletedParams
+) {
+  const res = await fetch(baseUrl + `/items/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error("데이터를 저장하는 데 실패했습니다.");
+  }
+
+  return res;
+}
+
 export async function patchItem(id: number, data: PatchItemParams) {
   const res = await fetch(baseUrl + `/items/${id}`, {
     method: "PATCH",
@@ -42,6 +82,17 @@ export async function patchItem(id: number, data: PatchItemParams) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error("데이터를 저장하는 데 실패했습니다.");
+  }
+  return res;
+}
+
+export async function deleteItem(id: number) {
+  const res = await fetch(baseUrl + `/items/${id}`, {
+    method: "DELETE",
   });
 
   if (!res.ok) {
