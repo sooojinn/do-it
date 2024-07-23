@@ -80,12 +80,22 @@ export default function FileInput({
   return (
     <div>
       <div className={styles.imgWrapper}>
-        <Image
-          src={preview || "/preview_placeholder.svg"}
-          width={preview ? 384 : 64}
-          height={preview ? 311 : 64}
-          alt="이미지 미리보기"
-        />
+        {preview ? (
+          <Image
+            className={styles.imgPreview}
+            src={preview}
+            width={384}
+            height={311}
+            alt="이미지 미리보기"
+          />
+        ) : (
+          <Image
+            src={"/preview_placeholder.svg"}
+            width={64}
+            height={64}
+            alt="이미지 미리보기"
+          />
+        )}
         <label className={styles.fileSelectBtn} htmlFor="fileInput">
           <div className={`${styles.btn} ${styles[type]}`}>
             <Image

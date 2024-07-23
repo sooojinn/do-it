@@ -11,7 +11,13 @@
   position: relative;
 }
 
-.imgWrapper > img {
+@media (min-width: 744px) {
+  .imgWrapper {
+    width: 384px;
+  }
+}
+
+.imgPreview {
   width: 100%;
   object-fit: cover;
   border-radius: inherit;
