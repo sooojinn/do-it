@@ -1,5 +1,5 @@
 .imgWrapper {
-  width: 384px;
+  flex-grow: 1;
   height: 311px;
   background: #f8fafc;
   border: 2px dashed #cbd5e1;
@@ -11,10 +11,20 @@
   position: relative;
 }
 
+.imgWrapper > img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
 .btn {
   position: absolute;
   right: 16px;
   bottom: 16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   width: 64px;
   height: 64px;

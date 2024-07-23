@@ -10,6 +10,17 @@
   height: 100%;
 }
 
+@media (max-width: 744px) {
+  .section {
+    padding-bottom: 150px;
+    height: auto;
+  }
+
+  .itemForm {
+    height: auto;
+  }
+}
+
 .itemName {
   width: 100%;
   max-width: 996px;
@@ -91,6 +102,20 @@
   overflow: auto;
 }
 
+.inputMemo::-webkit-scrollbar {
+  width: 4px;
+  height: 45px;
+}
+
+.inputMemo::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.inputMemo::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: #fde68a;
+}
+
 .btns {
   display: flex;
   justify-content: flex-end;
@@ -106,6 +131,14 @@
 @media (max-width: 744px) {
   .btns {
     justify-content: center;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 375px) {
+  .btns {
+    justify-content: center;
+    gap: 7px;
   }
 }
 

@@ -75,7 +75,13 @@ function CheckListItem({ type, item }: CheckListItemProps) {
 function EmptyList({ type }: EmptyListProps) {
   return (
     <>
-      <Image src={`/${type}_empty.svg`} width={240} height={240} alt="empty" />
+      <Image
+        className={styles.emptyImg}
+        src={`/${type}_empty.svg`}
+        width={240}
+        height={240}
+        alt="empty"
+      />
       <div className={styles.emptyMessage}>
         {emptyMessages[type].map((message, index) => (
           <p key={index}>{message}</p>
