@@ -40,7 +40,6 @@ export default function ItemForm({ item }: ItemDetailProp) {
     const res = await patchItem(item.id, values);
 
     if (res.ok) {
-      alert("수정되었습니다.");
       router.push("/");
     }
   };
@@ -52,7 +51,6 @@ export default function ItemForm({ item }: ItemDetailProp) {
     const res = await deleteItem(item.id);
 
     if (res.ok) {
-      alert("삭제되었습니다.");
       router.push("/");
     }
   };
