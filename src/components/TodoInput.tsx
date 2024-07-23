@@ -13,6 +13,7 @@ export default function TodoInput({ isEmpty }: TodoIInputProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
 
+  // 게시 요청 함수
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name.trim()) return;

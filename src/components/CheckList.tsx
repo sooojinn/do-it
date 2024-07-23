@@ -21,6 +21,7 @@ const emptyMessages = {
   done: ["아직 다 한 일이 없어요.", "해야 할 일을 체크해보세요!"],
 };
 
+// todo-list와 done-list의 공용 컴포넌트
 export default function CheckList({ type, list }: CheckListProps) {
   const isEmpty = !list.length;
   return (
@@ -44,6 +45,7 @@ export default function CheckList({ type, list }: CheckListProps) {
 }
 
 function CheckListItem({ type, item }: CheckListItemProps) {
+  // 할 일 항목의 왼쪽 버튼을 클릭하면 isCompleted 필드 수정
   const handleClick = async (id: number) => {
     const isCompleted = type === "todo" ? true : false;
     const data = {
@@ -72,6 +74,7 @@ function CheckListItem({ type, item }: CheckListItemProps) {
   );
 }
 
+// 리스트에 어떤 항목도 없을 때 보이는 컴포넌트
 function EmptyList({ type }: EmptyListProps) {
   return (
     <>

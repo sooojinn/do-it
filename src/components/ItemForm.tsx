@@ -12,7 +12,7 @@ interface ItemDetailProp {
   item: ListItemDetail;
 }
 
-export default function ItemDetail({ item }: ItemDetailProp) {
+export default function ItemForm({ item }: ItemDetailProp) {
   const router = useRouter();
   const type = item.isCompleted ? "done" : "todo";
   const initialValues = {
@@ -23,13 +23,6 @@ export default function ItemDetail({ item }: ItemDetailProp) {
   const [values, setValues] = useState(initialValues);
   const [isModified, setIsModified] = useState(false);
 
-  const handleChange = (name: string, value: string | File | null) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value ?? "",
-    }));
-  };
-
   // 수정한 내용이 있는지 체크 (없으면 '수정 완료' 버튼 비활성화)
   useEffect(() => {
     const isChanged =
@@ -37,11 +30,10 @@ export default function ItemDetail({ item }: ItemDetailProp) {
       values.memo !== initialValues.memo ||
       values.imageUrl !== initialValues.imageUrl;
 
-    console.log(values.memo, initialValues.memo);
-
     setIsModified(isChanged);
   }, [values, initialValues]);
 
+  // 수정 요청 함수
   const handleModifyClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -53,6 +45,7 @@ export default function ItemDetail({ item }: ItemDetailProp) {
     }
   };
 
+  // 삭제 요청 함수
   const handleDeleteClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -64,11 +57,21 @@ export default function ItemDetail({ item }: ItemDetailProp) {
     }
   };
 
+  // 모든 입력 필드의 변경 처리
+  const handleChange = (name: string, value: string | File | null) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value ?? "",
+    }));
+  };
+
+  // input 필드의 변경 처리
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     handleChange(name, value);
   };
 
+  // textarea 필드의 변경 처리
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     handleChange(name, value);

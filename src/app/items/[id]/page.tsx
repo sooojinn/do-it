@@ -1,6 +1,6 @@
 "use client";
 
-import ItemDetail from "@/components/ItemDetail";
+import ItemForm from "@/components/ItemForm";
 import { ListItemDetail } from "@/config/types";
 import { getItemDetail } from "@/lib/api";
 import { useParams } from "next/navigation";
@@ -13,6 +13,7 @@ export default function DetailPage() {
 
   const [item, setItem] = useState<ListItemDetail | null>(null);
 
+  // 할 일 상세 정보 가져오기
   useEffect(() => {
     const fetchData = async () => {
       const nextItem = await getItemDetail(id);
@@ -24,5 +25,5 @@ export default function DetailPage() {
 
   if (!item) return;
 
-  return <ItemDetail item={item} />;
+  return <ItemForm item={item} />;
 }
