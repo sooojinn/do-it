@@ -3,7 +3,7 @@
 import { ListItemDetail } from "@/config/types";
 import styles from "@/styles/ItemDetail.module.css";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FileInput from "./FileInput";
 import { deleteItem, patchItem } from "@/lib/api";
 import { useRouter } from "next/navigation";
@@ -15,11 +15,13 @@ interface ItemDetailProp {
 export default function ItemDetail({ item }: ItemDetailProp) {
   const router = useRouter();
   const type = item.isCompleted ? "done" : "todo";
-  const [values, setValues] = useState({
+  const initialValues = {
     name: item.name,
-    memo: item.memo,
+    memo: item.memo ?? "",
     imageUrl: item.imageUrl ?? "",
-  });
+  };
+  const [values, setValues] = useState(initialValues);
+  const [isModified, setIsModified] = useState(false);
 
   const handleChange = (name: string, value: string | File | null) => {
     setValues((prevValues) => ({
@@ -27,6 +29,18 @@ export default function ItemDetail({ item }: ItemDetailProp) {
       [name]: value ?? "",
     }));
   };
+
+  // 수정한 내용이 있는지 체크 (없으면 '수정 완료' 버튼 비활성화)
+  useEffect(() => {
+    const isChanged =
+      values.name !== initialValues.name ||
+      values.memo !== initialValues.memo ||
+      values.imageUrl !== initialValues.imageUrl;
+
+    console.log(values.memo, initialValues.memo);
+
+    setIsModified(isChanged);
+  }, [values, initialValues]);
 
   const handleModifyClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -96,9 +110,13 @@ export default function ItemDetail({ item }: ItemDetailProp) {
           </div>
         </div>
         <div className={styles.btns}>
-          <button className={styles.btn} onClick={handleModifyClick}>
+          <button
+            className={styles.btn}
+            disabled={!isModified}
+            onClick={handleModifyClick}
+          >
             <Image
-              src="/modify_btn.svg"
+              src={`/modify_btn${isModified ? "_active" : ""}.svg`}
               width={168}
               height={56}
               alt="수정 완료"
