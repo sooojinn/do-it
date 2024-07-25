@@ -45,6 +45,7 @@
   border: none;
   background-color: inherit;
 
+  font-family: var(--font-nanum-square-bold);
   font-size: 20px;
   font-weight: 700;
   line-height: 22.7px;
@@ -78,6 +79,7 @@
 }
 
 .memo {
+  font-family: var(--font-nanum-square-Extrabold);
   font-size: 16px;
   font-weight: 800;
   line-height: 18.16px;
