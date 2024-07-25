@@ -1,9 +1,9 @@
 "use client";
 
 import { ListItemDetail } from "@/config/types";
-import styles from "@/styles/ItemDetail.module.css";
+import styles from "@/styles/ItemForm.module.css";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import FileInput from "./FileInput";
 import { deleteItem, patchItem } from "@/lib/api";
 import { useRouter } from "next/navigation";
@@ -23,6 +23,8 @@ export default function ItemForm({ item }: ItemDetailProp) {
   const [values, setValues] = useState(initialValues);
   const [isModified, setIsModified] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  const spanRef = useRef<HTMLSpanElement>(null);
+  const [fontWidth, setFontWidth] = useState("auto");
 
   // 수정한 내용이 있는지 체크 (없으면 '수정 완료' 버튼 비활성화)
   useEffect(() => {
@@ -33,6 +35,14 @@ export default function ItemForm({ item }: ItemDetailProp) {
 
     setIsModified(isChanged);
   }, [values, initialValues]);
+
+  // input 요소의 너비를 입력값의 너비와 일치시킴
+  useEffect(() => {
+    if (spanRef.current) {
+      const width = spanRef.current.getBoundingClientRect().width;
+      setFontWidth(`${width}px`);
+    }
+  }, [values.name]);
 
   // 수정 요청 함수
   const handleModifyClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -90,6 +100,7 @@ export default function ItemForm({ item }: ItemDetailProp) {
     const { name, value } = e.target;
     handleChange(name, value);
   };
+
   return (
     <section className={styles.section}>
       <form className={styles.itemForm}>
@@ -102,12 +113,20 @@ export default function ItemForm({ item }: ItemDetailProp) {
             height={32}
             alt={`${type}_icon`}
           />
-          <input
-            className={styles.inputName}
-            name="name"
-            value={values.name}
-            onChange={handleInputChange}
-          />
+          <div className={styles.inputWrapper}>
+            <span ref={spanRef} className={styles.hiddenSpan}>
+              {values.name}
+            </span>
+            <input
+              className={styles.inputName}
+              name="name"
+              value={values.name}
+              onChange={handleInputChange}
+              style={{
+                width: fontWidth,
+              }}
+            />
+          </div>
         </div>
         <div className={styles.fileAndMemoWrapper}>
           <FileInput
