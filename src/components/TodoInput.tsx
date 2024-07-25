@@ -9,6 +9,7 @@ interface TodoIInputProps {
 
 export default function TodoInput({ isEmpty }: TodoIInputProps) {
   const [name, setName] = useState("");
+  const [isPending, setIsPending] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setName(e.target.value);
@@ -17,11 +18,19 @@ export default function TodoInput({ isEmpty }: TodoIInputProps) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name.trim()) return;
+    try {
+      setIsPending(true);
+      const res = await postItem(name);
 
-    const res = await postItem(name);
-
-    if (res.ok) {
-      window.location.reload();
+      if (res.ok) {
+        window.location.reload();
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -40,6 +49,7 @@ export default function TodoInput({ isEmpty }: TodoIInputProps) {
         <button
           className={`${styles.btn} ${isEmpty ? styles.empty : ""}`}
           type="submit"
+          disabled={isPending}
         >
           <Image
             src={`/plus${isEmpty ? "_empty" : ""}.svg`}

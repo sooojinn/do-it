@@ -15,12 +15,18 @@ export default function DetailPage() {
 
   // 할 일 상세 정보 가져오기
   useEffect(() => {
-    const fetchData = async () => {
-      const nextItem = await getItemDetail(id);
-      setItem(nextItem);
-    };
+    try {
+      const fetchData = async () => {
+        const nextItem = await getItemDetail(id);
+        setItem(nextItem);
+      };
 
-    fetchData();
+      fetchData();
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
   }, [id]);
 
   if (!item) return;

@@ -22,6 +22,7 @@ export default function ItemForm({ item }: ItemDetailProp) {
   };
   const [values, setValues] = useState(initialValues);
   const [isModified, setIsModified] = useState(false);
+  const [isPending, setIsPending] = useState(false);
 
   // 수정한 내용이 있는지 체크 (없으면 '수정 완료' 버튼 비활성화)
   useEffect(() => {
@@ -36,22 +37,37 @@ export default function ItemForm({ item }: ItemDetailProp) {
   // 수정 요청 함수
   const handleModifyClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    const res = await patchItem(item.id, values);
-
-    if (res.ok) {
-      router.push("/");
+    try {
+      setIsPending(true);
+      const res = await patchItem(item.id, values);
+      if (res.ok) {
+        router.push("/");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      setIsPending(false);
     }
   };
 
   // 삭제 요청 함수
   const handleDeleteClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    try {
+      setIsPending(true);
+      const res = await deleteItem(item.id);
 
-    const res = await deleteItem(item.id);
-
-    if (res.ok) {
-      router.push("/");
+      if (res.ok) {
+        router.push("/");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -113,7 +129,7 @@ export default function ItemForm({ item }: ItemDetailProp) {
         <div className={styles.btns}>
           <button
             className={styles.btn}
-            disabled={!isModified}
+            disabled={!isModified || isPending}
             onClick={handleModifyClick}
           >
             <Image
@@ -123,7 +139,11 @@ export default function ItemForm({ item }: ItemDetailProp) {
               alt="수정 완료"
             />
           </button>
-          <button className={styles.btn} onClick={handleDeleteClick}>
+          <button
+            className={styles.btn}
+            disabled={isPending}
+            onClick={handleDeleteClick}
+          >
             <Image
               src="/delete_btn.svg"
               width={168}

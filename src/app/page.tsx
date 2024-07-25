@@ -11,12 +11,18 @@ export default function Home() {
   const [list, setList] = useState<ListItem[]>([]);
 
   useEffect(() => {
-    // 서버에서 할 일 목록 불러오기
-    const fetchData = async () => {
-      const res = await getItems();
-      setList(res);
-    };
-    fetchData();
+    try {
+      // 서버에서 할 일 목록 불러오기
+      const fetchData = async () => {
+        const res = await getItems();
+        setList(res);
+      };
+      fetchData();
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
   }, []);
 
   const isEmpty = !list.length;
