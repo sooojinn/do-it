@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## 프로젝트 소개
 
-First, run the development server:
+간단하게 할 일을 정리할 수 있는 Todo List 입니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 기술 스택
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Next.js, React, TypeScript, CSS Module
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 사용 방법
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<img width="1440" alt="스크린샷 2024-07-25 오전 11 57 19" src="https://github.com/user-attachments/assets/c233d9d0-61a5-44cc-a499-27866bb3d4c9">
 
-## Learn More
+상단의 입력창을 통해 할 일을 저장할 수 있습니디.
 
-To learn more about Next.js, take a look at the following resources:
+<img width="1440" alt="스크린샷 2024-07-25 오후 12 43 38" src="https://github.com/user-attachments/assets/47cbc060-8410-4c53-af72-205bdb5eaba1">
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+할 일 항목의 왼쪽 버튼을 클릭하면 완료된 항목으로 분류됩니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<img width="1440" alt="스크린샷 2024-07-25 오후 12 45 11" src="https://github.com/user-attachments/assets/84a28c76-b428-4c63-86c0-429e3f4c01b2">
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+할 일 항목을 클릭하면 상세 페이지로 이동합니다.
+- 할 일 제목을 수정할 수 있습니다.
+- 이미지 파일과 메모를 추가할 수 있습니다.
+- 할 일을 삭제할 수 있습니다.
